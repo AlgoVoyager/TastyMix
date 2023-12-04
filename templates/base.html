@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {% block title %} {% endblock %}| TastyMix</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+input{
+        padding-left:10px;
+        padding-right:10px;
+    }
+</style>
+
+</head>
+<body  style="background-color:cornsilk">
+<nav class="container flex justify-between items-center gap-5 ml-5 px-3 py-5 text-2xl">
+    <div class="flex gap-5" >
+        <a class="hover:text-orange-500" href="/">Home</a>
+        <a class="hover:text-orange-500" href="{% url 'recipes' %}">Recipes</a>
+
+    </div>
+    <div class="flex gap-5">
+        {% if request.user.is_authenticated %}
+         <a class="hover:text-orange-500" href="/">Welcome, {{request.user}},</a>
+         <a class="hover:text-orange-500" href="{% url 'signout' %}">Logout</a>
+        {% else %}
+            <a class="hover:text-orange-500" href="{% url 'signin' %}">Login</a>
+        {% endif %}
+    </div>
+
+
+</nav>
+
+{% block body %}
+
+{% endblock %}
+</body>
+
+</html>

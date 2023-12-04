@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block title %} Recipes {% endblock %}
+{% block body %}
+<main class=" flex  flex-col">
+
+<div class="container max-w-screen-lg mx-auto ">
+
+   {% if request.user.is_authenticated %}
+
+
+    <form method="post" action="/recipe/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="space-y-12">
+            <div class="border-b border-gray-900/10 pb-12">
+                <h2 class="text-3xl font-semibold leading-7 text-gray-900">Add Recipe</h2>
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="sm:col-span-4">
+                        <label for="recipe_name" class="block text-sm font-medium leading-6 text-gray-900">Recipe
+                            Name</label>
+                        <div class="mt-2">
+                            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+
+                                <input type="text" name="recipe_name" id="recipe_name"
+                                       class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                       placeholder="recipe_name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-span-full">
+                        <label for="Ingredients"
+                               class="block text-sm font-medium leading-6 text-gray-900">Ingredients</label>
+                        <div class="mt-2">
+                            <textarea id="Ingredients" name="Ingredients" rows="3"
+                                      class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+                        </div>
+                        <p class="mt-3 text-sm leading-6 text-gray-600">Describe Recipe or Add Ingredients</p>
+                    </div>
+
+                    <div class="col-span-full flex justify-between items-center">
+                        <div class="mt-2 flex items-center gap-x-3">
+                            <label for="recipe_image" class="block text-sm font-medium leading-6 text-gray-900">Recipe
+                                photo</label>
+
+                            <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor"
+                                 aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                            <input name="recipe_image" id="recipe_image" type="file"
+                                   class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                        </div>
+                        <button type="submit"
+                                class="rounded-md bg-white px-3 py-2 text-lg font-bold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                            ADD
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+    <div class="flex flex-wrap flex-col justify-center">
+
+        <h1 class="text-3xl font-bold  mx-auto">
+            Our Recipes
+        </h1>
+        <form action="/recipe/" class="flex mt-2 mb-2 mx-auto">
+            <input class="placeholder:italic placeholder:text-slate-400 bg-yellow-100 w-3/4 border border-slate-300 rounded-l-xl py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for Recipe..." type="text" name="search"/>
+            <input class="px-3 bg-yellow-100 hover:bg-yellow-200 border border-slate-300 rounded-r-xl" type="submit" value="Search">
+        </form>
+
+
+        <div class="bg-orange-200 p-4 flex flex-wrap justify-center items-center gap-5">
+            {% for recipe in recipes %}
+            <div class=" min-w-full gap-3 flex justify-between items-center bg-yellow-100 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-yellow-200 dark:border-gray-600 dark:bg-yellow-200 dark:hover:bg-yellow-300">
+
+                             <span class="bg-orange-400 px-2 rounded-r-xl">{{forloop.counter}}</span>
+                <div class=" flex md:flex-col justify-between items-center w-4/5 h-max">
+<!--                    <div class="card-in">-->
+                        <div class="flex flex-col justify-between p-4 leading-normal min-h-max">
+                            <h5 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-grey-700">{{recipe.recipe_name}}</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-500"> Ingredients: {{recipe.Ingredients}}</p>
+                        </div>
+                    {% if request.user.is_authenticated %}
+
+                        <div class="flex" >
+                            <a href="/update-recipe/{{recipe.id}}/"  class="p-1">
+                                <svg class="feather feather-edit" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            </a>
+                            <a href="/delete-recipe/{{recipe.id}}/"  class="p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
+                                    <path d="M3 3H21V5H3z"></path><path d="M16.1,22H7.9c-1,0-1.9-0.7-2-1.7L4,4.1l2-0.2L7.9,20l8.2,0L18,3.9l2,0.2l-1.9,16.1C18,21.3,17.1,22,16.1,22z"></path><path d="M5,4l1.9,16.1c0.1,0.5,0.5,0.9,1,0.9h8.2 c0.5,0,0.9-0.4,1-0.9L19,4H5z" opacity=".3"></path><path d="M15 3L15 4 9 4 9 3 10 2 14 2z"></path>
+                                </svg>
+                            </a>
+
+                        </div>
+                    {% endif %}
+
+                </div>
+                <img class="object-cover w-full rounded-r-lg h-72 md:h-72 md:w-72 md:rounded-none md:rounded-r-lg" src="/media/{{recipe.recipe_image}}" alt="">
+
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+</main>
+
+{% endblock body %}

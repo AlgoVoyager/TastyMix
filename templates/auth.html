@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block title %} Login/Signup {% endblock %}
+
+
+{% block body %}
+
+
+<div class="signin flex flex-col justify-center px-6 py-8 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+             alt="Your Company">
+        <h2 id="fhtext" class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
+            account</h2>
+    </div>
+
+        {% if messages %}
+            <div id="msg" class="mt-5 sm: mx-auto sm:w-full sm:max-w-sm py-3 pl-4 pr-5 leading-normal
+            {% if message.tags %} text-red-700 bg-red-100
+            {% else %} text-blue-700 bg-blue-100  {% endif %}
+             rounded-lg" role="alert">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              <span   onclick="closemsg()"
+'                      class="relative float-right inset-y-0 right-0 flex items-center mr-4">
+                <svg class="w-4 h-4 fill-current" role="button" viewBox="0 0 20 20"><path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+              </span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form id="authForm" class="space-y-4" action="/signin/" method="POST">
+            {% csrf_token %}
+           <div>
+
+                <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                <div class="mt-2">
+                    <input id="username" name="username" type="text" autocomplete="username" required
+                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+            <div id="firstname" >
+                <label for="firstname" class="block text-sm font-medium leading-6 text-gray-900">First Name</label>
+                <div class="mt-2">
+                    <input name="first_name" type="text" autocomplete="given-name"
+                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+            <div id="lastname" >
+                <label for="lastname" class="block text-sm font-medium leading-6 text-gray-900">Last Name</label>
+                <div class="mt-2">
+                    <input name="last_name" type="text" autocomplete="family-name"
+                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+            <div id="email">
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                <div class="mt-2">
+                    <input name="email" type="email" autocomplete="email"
+                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                    <div class="text-sm">
+                        <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required
+                           class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <button id="signInButton" type="submit"
+                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Sign in
+                </button>
+            </div>
+        </form>
+
+        <p class="mt-10 text-center text-sm text-gray-500">
+            <span id="toggleFormText">Not a member?</span>
+            <a href="javascript:void(0);" id="toggleForm" onclick="toggleFormMode()" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register</a>
+        </p>
+    </div>
+</div>
+
+
+<script>
+        let emailinp = document.querySelector('#email');
+        let firstname = document.querySelector('#firstname');
+        let lastname = document.querySelector('#lastname');
+        let toggleForm = document.querySelector('#toggleForm');
+        let toggleFormText = document.querySelector('#toggleFormText');
+        let fhtext = document.querySelector('#fhtext');
+
+        emailinp.style.display='none';
+        firstname.style.display='none';
+        lastname.style.display='none';
+
+    function toggleFormMode() {
+        const form = document.getElementById('authForm');
+        const action = form.getAttribute('action');
+        const signInButton = form.querySelector('#signInButton');
+        form.reset();
+        if (action === '/signin/') {
+            // Change to signup mode
+            form.setAttribute('action', '/signup/');
+            signInButton.textContent = 'Sign up';
+            setTimeout(function(){
+                emailinp.style.display='block';
+
+                fhtext.innerText="Sign Up for your Account";
+            }, 400);
+            setTimeout(function(){
+                toggleFormText.innerText="Already have Account?";
+                lastname.style.display='block';
+            }, 300);
+            setTimeout(function(){
+                firstname.style.display='block';
+                toggleForm.innerText="Login";
+            }, 200);
+        } else {
+            // Change to signin mode
+            form.setAttribute('action', '/signin/');
+            signInButton.textContent = 'Sign in';
+            setTimeout(function(){
+                emailinp.style.display='none';
+
+                fhtext.innerText="Sign in to your Account";
+
+            }, 400);
+            setTimeout(function(){
+                lastname.style.display='none';
+                toggleFormText.innerText="Not Registered?";
+            }, 300);
+            setTimeout(function(){
+                firstname.style.display='none';
+                toggleForm.innerText="Register";
+            }, 200);
+        }
+
+    }
+    function closemsg(){
+            document.querySelector('#msg').style.display='none';
+        }
+</script>
+{% endblock %}
