@@ -8,12 +8,14 @@ def recipes(request):
     if request.method == "POST":
         print("post request")
         data = request.POST
+        user= request.user
         recipe_name = data.get('recipe_name')
         Ingredients = data.get('Ingredients')
         recipe_image = request.FILES.get('recipe_image')
         print(recipe_name, Ingredients, recipe_image)
 
         Recipe.objects.create(
+            user=user,
             recipe_image=recipe_image,
             recipe_name=recipe_name,
             Ingredients=Ingredients,
@@ -52,6 +54,15 @@ def delete_recipe(request,id):
 
 def index(request):
     return render(request, "index.html")
+
+def profile(request,id):
+    print("viewing Profile id : ",id)
+    queryset = Recipe.objects.all()
+    queryset = queryset.filter(user_id=id)
+    if request.GET.get("search"):
+        queryset=queryset.filter(recipe_name__icontains=request.GET.get('search'))
+    context = {'recipes': queryset}
+    return render(request, "profile.html", context)
 
 def auth(request):
 
