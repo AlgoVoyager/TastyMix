@@ -2,11 +2,13 @@
 {% block title %} Profile {% endblock %}
 {% block style %}
     .profile_details{
+        margin-top:30px;
+        margin-bottom:30px;
         display:flex;
         justify-content:center;
         align-items:center;
         flex-direction:column;
-        gap:30px;
+        gap:50px;
 
     }
 {% endblock %}
@@ -21,13 +23,13 @@
     {% endif %}
 <!--    <div class="container-sm mx-auto flex gap-3 justify-center flex-col ">-->
     <div class="container-sm mx-auto profile_details">
-        <div class="text-4xl">@{{request.user}} </div>
+        <div class="text-4xl text-blue-700 font-bold">@{{request.user}} </div>
         <div class="flex gap-5" >
-             <div class="text-3xl">First Name: {{request.user.first_name}} </div>
-         <div class="text-3xl">Last Name: {{request.user.last_name}} </div>
+            <div class="text-3xl">First Name: <span class="text-blue-900 font-bold">{{request.user.first_name}}</span> </div>
+         <div class="text-3xl">Last Name:<span class="text-blue-900 font-bold"> {{request.user.last_name}}</span> </div>
         </div>
 
-         <span class="text-2xl">Email Addres: {{request.user.email}} </span>
+        <div class="text-2xl">Email Address: <span class="text-green-800 font-bold">{{request.user.email}} </span></div>
     </div>
     <div class="flex flex-wrap flex-col justify-center mt-10">
 
@@ -49,7 +51,7 @@
 <!--                    <div class="card-in">-->
                         <div class="flex flex-col justify-between p-4 leading-normal min-h-max">
                             <h5 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-grey-700">{{recipe.recipe_name}}</h5>
-                            <span>added by, {{recipe.user}}</span>
+                           
                             <pre class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-500"> Ingredients: {{recipe.Ingredients}}</pre>
                         </div>
                     {% if request.user.is_authenticated %}

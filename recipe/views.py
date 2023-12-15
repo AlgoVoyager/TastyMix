@@ -29,6 +29,8 @@ def recipes(request):
     context = {'recipes': queryset}
     return render(request, "recipe.html", context)
 
+
+
 def update_recipe(request,id):
     queryset=Recipe.objects.get(id=id)
     if request.method=="POST":
