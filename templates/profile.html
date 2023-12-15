@@ -44,15 +44,15 @@
 
         <div class="bg-orange-200 p-4 flex flex-wrap justify-center items-center gap-5">
             {% for recipe in recipes %}
-            <div class=" min-w-full gap-3 flex justify-between items-center bg-yellow-100 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-yellow-200 dark:border-gray-600 dark:bg-yellow-200 dark:hover:bg-yellow-300">
+            <div class=" min-w-1/2 gap-3 flex justify-between items-center bg-yellow-100 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-yellow-200 dark:border-gray-600 dark:bg-yellow-200 dark:hover:bg-yellow-300">
 
                              <span class="bg-orange-400 px-2 rounded-r-xl">{{forloop.counter}}</span>
                 <div class=" flex md:flex-col justify-between items-center w-4/5 h-max">
 <!--                    <div class="card-in">-->
                         <div class="flex flex-col justify-between p-4 leading-normal min-h-max">
-                            <h5 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-grey-700">{{recipe.recipe_name}}</h5>
-                           
-                            <pre class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-500"> Ingredients: {{recipe.Ingredients}}</pre>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 text-3xl hover:text-blue-500 font-bold tracking-tight text-gray-900 dark:text-grey-700">{{recipe.recipe_name}}</a>
+
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 hover:text-blue-500 text-sm font-normal text-gray-700 dark:text-gray-500"> Ingredients: {{recipe.Ingredients | truncatechars:50}}</a>
                         </div>
                     {% if request.user.is_authenticated %}
 

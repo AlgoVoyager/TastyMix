@@ -30,6 +30,11 @@ def recipes(request):
     return render(request, "recipe.html", context)
 
 
+def recipe_details(request,id):
+    queryset = Recipe.objects.get(id=id)
+    context = {'recipe_details':queryset}
+    return render(request,'recipe_details.html',context)
+
 
 def update_recipe(request,id):
     queryset=Recipe.objects.get(id=id)

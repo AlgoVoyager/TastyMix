@@ -80,9 +80,9 @@
                 <div class=" flex md:flex-col justify-between items-center w-4/5 h-max">
 <!--                    <div class="card-in">-->
                         <div class="flex flex-col justify-between p-4 leading-normal min-h-max">
-                            <a href="{% url 'recipes'   %}" class="mb-2 text-3xl font-bold tracking-tight text-gray-900 hover:text-blue-500 dark:text-grey-700">{{recipe.recipe_name}}</a>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 text-3xl font-bold tracking-tight text-gray-900 hover:text-blue-500 dark:text-grey-700">{{recipe.recipe_name}}</a>
                             <span>added by, {{recipe.user}}</span>
-                            <a href="#" class="mb-3 text-md font-normal text-gray-900 dark:text-gray-700 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 text-md font-normal text-gray-900 dark:text-gray-700 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
                         </div>
                     {% if request.user.is_authenticated %}
 
