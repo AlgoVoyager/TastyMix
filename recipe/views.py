@@ -23,6 +23,7 @@ def recipes(request):
         return redirect('/recipe')
 
     queryset = Recipe.objects.all()
+
     if request.GET.get("search"):
         queryset=queryset.filter(recipe_name__icontains=request.GET.get('search'))
 
@@ -60,7 +61,16 @@ def delete_recipe(request,id):
     return redirect('/recipe')
 
 def index(request):
-    return render(request, "index.html")
+    queryset = Recipe.objects.all()
+
+    if len(queryset) >4:
+        lastRecipes = queryset.reverse()[:5]
+        context = {'recipes':queryset[:5],'lastRecipes':lastRecipes}
+    else:
+        lastRecipes = queryset.reverse()[:len(queryset)]
+        context = {'recipes':queryset[:len(queryset)],'lastRecipes':lastRecipes}
+
+    return render(request, "index.html",context)
 
 def profile(request,id):
     print("viewing Profile id : ",id)

@@ -12,7 +12,7 @@
         {% csrf_token %}
         <div class="space-y-12 w-3/4 mx-auto">
             <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-3xl font-semibold leading-7 text-gray-900">Add Recipe</h2>
+                <h2 class="text-3xl  font-semibold leading-7 text-gray-900">Add Recipe</h2>
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-4">
                         <label for="recipe_name" class="block text-sm font-medium leading-6 text-gray-900">Recipe
@@ -20,7 +20,7 @@
                         <div class="mt-2">
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
 
-                                <input type="text" name="recipe_name" id="recipe_name"
+                                <input type="text" name="recipe_name" id="recipe_name" required
                                        class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                        placeholder="recipe_name">
                             </div>
@@ -31,7 +31,7 @@
                         <label for="Ingredients"
                                class="block text-sm font-medium leading-6 text-gray-900 ">Ingredients</label>
                         <div class="mt-2">
-                            <textarea id="Ingredients" name="Ingredients" rows="3"
+                            <textarea id="Ingredients" name="Ingredients" rows="3" required
                                       class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
                         </div>
                         <p class="mt-3  text-sm leading-6 text-gray-600">Describe Recipe or Add Ingredients</p>
@@ -60,19 +60,25 @@
             </div>
         </div>
     </form>
+    {% else %}
+        <div class="text-center  text-3xl my-5">
+            Wanna see your Delicious Dishes here?... <br>
+            <a href="{% url 'auth' %}" class="text-orange-400 text-4xl hover:text-yellow-600 font-bold">Sign IN</a> <br>
+            And Add Yours Too!!!
+        </div>
     {% endif %}
     <div class="flex flex-wrap flex-col justify-center">
 
-        <h1 class="text-3xl font-bold  mx-auto">
+        <h1 class="text-5xl font-bold my-3 mx-auto">
             Our Recipes
         </h1>
-        <form action="/recipe/" class="flex mt-2 mb-2 mx-auto">
-            <input class="placeholder:italic placeholder:text-slate-400 bg-yellow-100 w-3/4 border border-slate-300 rounded-l-xl py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for Recipe..." type="text" name="search"/>
-            <input class="px-3 bg-yellow-100 hover:bg-yellow-200 border border-slate-300 rounded-r-xl" type="submit" value="Search">
+        <form action="/recipe/" class="flex my-5  mx-auto">
+            <input class="placeholder:italic placeholder:text-slate-400 bg-yellow-100 w-3/4 border border-slate-300 rounded-l-xl py-2 pl-9 pr-3 shadow-xl focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 text-xl" placeholder="Search for Recipe..." type="text" name="search"/>
+            <input class="px-3 bg-yellow-100 hover:bg-yellow-200 shadow-xl border border-slate-300 rounded-r-xl" type="submit" value="Search">
         </form>
 
 
-        <div class="bg-orange-200 p-4 flex flex-wrap justify-center items-center gap-5">
+        <div class="bg-orange-200 p-4 flex flex-wrap rounded-lg justify-center items-center gap-5">
             {% for recipe in recipes %}
             <div class=" min-w-1/2 gap-3 flex justify-between items-center bg-yellow-100 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-yellow-200 dark:border-gray-600 dark:bg-yellow-200 dark:hover:bg-yellow-300">
 
@@ -80,11 +86,11 @@
                 <div class=" flex md:flex-col justify-between items-center w-4/5 h-max">
 <!--                    <div class="card-in">-->
                         <div class="flex flex-col justify-between p-4 leading-normal min-h-max">
-                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 text-3xl font-bold tracking-tight text-gray-900 hover:text-blue-500 dark:text-grey-700">{{recipe.recipe_name}}</a>
-                            <span>added by, {{recipe.user}}</span>
-                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 text-md font-normal text-gray-900 dark:text-gray-700 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 text-3xl font-bold tracking-tight text-yellow-900 hover:text-blue-500">{{recipe.recipe_name}}</a>
+                            <span>added by, <a href="{% url 'profile' recipe.user.id %}" class="text-yellow-600 font-bold hover:text-blue-600">@{{recipe.user}}</a></span>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 text-md font-normal text-yellow-800 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
                         </div>
-                    {% if request.user.is_authenticated %}
+                    {% if request.user == recipe.user %}
 
                         <div class="flex" >
                             <a href="/update-recipe/{{recipe.id}}/"  class="p-1">
@@ -99,8 +105,13 @@
                         </div>
                     {% endif %}
 
+
+
                 </div>
-                <img class="rimg object-cover   rounded-r-lg h-48 w-48 md:h-72 md:w-72 md:rounded-none md:rounded-r-lg" src="/media/{{recipe.recipe_image}}" alt="">
+                <a href="{% url 'recipe_details' recipe.id  %}">
+
+                <img class="rimg object-cover   rounded-r-lg h-48 w-48 md:h-72 md:w-72 md:rounded-none md:rounded-r-lg" src="/media/{{recipe.recipe_image}}" alt="{{recipe.recipe_namea}}">
+                </a>
 
             </div>
             {% endfor %}
