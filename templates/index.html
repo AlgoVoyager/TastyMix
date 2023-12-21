@@ -132,7 +132,7 @@ border: 3px solid black;
     {% for recipe in recipes %}
     <div class="mySlides fade">
         <!--  <div class="numbertext">{{forloop.counter}} / 5</div>-->
-        <img class="imgcar" src="/media/{{recipe.recipe_image}}">
+        <img class="imgcar" src="/static/{{recipe.recipe_image}}">
         <div class="text">{{recipe.recipe_name}}</div>
     </div>
     {% endfor %}
@@ -153,7 +153,7 @@ border: 3px solid black;
     <div class=" w-1/2 h-3/4 relative">
 
         {% for lastRecipe in lastRecipes %}
-        <img src="/media/{{lastRecipe.recipe_image}}" class="imgs  img-{{forloop.counter}}">
+        <img src="/static/{{lastRecipe.recipe_image}}" class="imgs  img-{{forloop.counter}}">
         {% endfor %}
     </div>
     <div class=" w-1/2 flex gap-10 flex-col justify-center items-center">
