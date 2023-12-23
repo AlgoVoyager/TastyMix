@@ -87,7 +87,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default']=  dj_database_url.parse('postgres://nishant:zxjtAlC1X6RfLXB7qHWC8bTBNZjVzR5p@dpg-cm06kida73kc73c16mp0-a.singapore-postgres.render.com/tastymix')
+# DATABASES['default']=  dj_database_url.parse('postgres://nishant:zxjtAlC1X6RfLXB7qHWC8bTBNZjVzR5p@dpg-cm06kida73kc73c16mp0-a.singapore-postgres.render.com/tastymix')
 #postgres://nishant:zxjtAlC1X6RfLXB7qHWC8bTBNZjVzR5p@dpg-cm06kida73kc73c16mp0-a.singapore-postgres.render.com/tastymix
 
 # Password validation
@@ -126,9 +126,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'public/static'
-# ]
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'public/static')
 STATICFILES_DIRS = [
     # BASE_DIR / 'media'
