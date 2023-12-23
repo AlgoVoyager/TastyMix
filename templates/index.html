@@ -91,25 +91,29 @@ animation-duration: 2s;
 from {opacity: .3}
 to {opacity: 1}
 }
-
+.page2{
+height:100vh;}
 /* On smaller screens, decrease text size */
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 1080px) {
 .text{top:40%; font-size:20px;}
 .prev, .next {font-size: 20px; top:30%}
-
+.cata{ max-height:30vh;}
 .imgs{
-max-width:110px;
-max-height:110px;
+max-width:310px;
+max-height:310px;
 }
-.img-1{left:10%; top:15%; z-index:1}
-.img-2{right:-20%; top:10%; z-index:2}
-.img-3{left:30%; top:20%; z-index:5}
-.img-4{left:20%; top:30%; z-index:4}
+.art,  {width:100%;}
+.img-1{left:5%; top:10%; z-index:1}
+.img-2{right:-15%; top:15%; z-index:2}
+.img-3{left:0%; top:30%; z-index:5}
+.img-4{left:-10%; top:40%; z-index:4}
 .img-5{right:-5%; top:50%; z-index:3}
 .page2{flex-wrap:wrap}
 }
 .page2{
-height:100vh;
+height:49vh;
+width:100vw;
+flex-direction:column;
 width:95vw;
 margin: 0 auto;
 }
@@ -143,20 +147,20 @@ border: 3px solid black;
 </div>
 <br>
 
-<div style="text-align:center">
+<div style="text-align:center;" class="cata">
     {% for recipe in recipes %}
     <span class="dot" onclick="currentSlide({{forloop.counter}})"></span>
     {% endfor %}
 </div>
 
 <div class="page2 flex flex-wrap justify-around items-center ">
-    <div class=" w-1/2 h-3/4 relative">
+    <div class=" w-1/2 h-3/4 relative art">
 
         {% for lastRecipe in lastRecipes %}
         <img src="/static/{{lastRecipe.recipe_image}}" class="imgs  img-{{forloop.counter}}">
         {% endfor %}
     </div>
-    <div class=" w-1/2 flex gap-10 flex-col justify-center items-center">
+    <div class=" w-1/2 flex gap-10 flex-col justify-center items-center join">
         <h1 class="text-3xl text-yellow-800">Try or Contribute To our Recipes...</h1>
         <a href="{% url 'recipes' %}" class="text-5xl bg-yellow-300 hover:bg-yellow-600 border-2 px-3 py-2 rounded-xl">Go</a>
     </div>
