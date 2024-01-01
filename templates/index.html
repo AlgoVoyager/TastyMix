@@ -2,17 +2,6 @@
 {% block title %} Home {% endblock %}
 {% block style %}
 
-body{
-overflow-x:hidden;}
-.mySlides {display: none}
-.imgcar {
-vertical-align:middle;
-max-height:70vh;
-
-width:100%;
-
-}
-
 /* Slideshow container */
 .slideshow-container {
 max-height:75vh;
@@ -60,7 +49,7 @@ background-opacity:5;
 font-size: 30px;
 padding: 8px 12px;
 position: absolute;
-bottom: 25%;
+bottom: 15%;
 text-align: center;
 width:100%
 }
@@ -91,58 +80,29 @@ animation-duration: 2s;
 from {opacity: .3}
 to {opacity: 1}
 }
-.page2{
-height:100vh;}
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 1080px) {
-.text{top:40%; font-size:20px;}
-.prev, .next {font-size: 20px; top:30%}
-.cata{ max-height:30vh;}
-.imgs{
-max-width:310px;
-max-height:310px;
-}
-.art,  {width:100%;}
-.img-1{left:5%; top:10%; z-index:1}
-.img-2{right:-15%; top:15%; z-index:2}
-.img-3{left:0%; top:30%; z-index:5}
-.img-4{left:-10%; top:40%; z-index:4}
-.img-5{right:-5%; top:50%; z-index:3}
-.page2{flex-wrap:wrap}
-}
-.page2{
-height:49vh;
-width:100vw;
-flex-direction:column;
-width:95vw;
-margin: 0 auto;
-}
-.imgs{
-width:300px;
-max-height:300px;
-position:absolute;
-border-radius:10%;
-border: 3px solid black;
-}
-.img-1{left:17%; top:-3%; z-index:1}
-.img-2{right:-10%; top:10%; z-index:2}
-.img-3{left:40%; top:20%; z-index:5}
-.img-4{left:10%; bottom:18%; z-index:4}
-.img-5{right:-3%; bottom:6%; z-index:3}
+
+.img-1{left:8%;top:15%}
+.img-2{right:8%;top:10%}
+.img-3{z-index:5;}
+.img-4{left:5%;bottom:10%}
+.img-5{right:10%;bottom:15%;}
+
+
+.img{border-radius:10%;border: 5px dashed #d09c00}
 {% endblock %}
 {% block body %}
 
-<div class="slideshow-container ">
+<div class="slideshow-container relative ">
     {% for recipe in recipes %}
-    <div class="mySlides fade">
+    <div class="mySlides relative fade">
         <!--  <div class="numbertext">{{forloop.counter}} / 5</div>-->
         <img class="imgcar" src="/static/{{recipe.recipe_image}}">
         <div class="text">{{recipe.recipe_name}}</div>
     </div>
     {% endfor %}
 
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <a class="next" onclick="plusSlides(1)">❯</a>
+    <a class="prev absolute" onclick="plusSlides(-1)">❮</a>
+    <a class="next absolute" onclick="plusSlides(1)">❯</a>
 
 </div>
 <br>
@@ -153,16 +113,15 @@ border: 3px solid black;
     {% endfor %}
 </div>
 
-<div class="page2 flex flex-wrap justify-around items-center ">
-    <div class=" w-1/2 h-3/4 relative art">
-
-        {% for lastRecipe in lastRecipes %}
-        <img src="/static/{{lastRecipe.recipe_image}}" class="imgs  img-{{forloop.counter}}">
-        {% endfor %}
+<div class="page2 h-screen  flex lg:flex-row md:flex-col  justify-around items-center ">
+    <div class=" lg:w-1/2 md:w-full flex gap-10 flex-col justify-center items-center join">
+        <h1 class="lg:text-7xl md:text-8xl text-yellow-800 text-center">Try or Contribute <br> <br> To our Recipes...</h1>
+        <a href="{% url 'recipes' %}" class="go lg:text-5xl md:text-9xl my-16 bg-yellow-300 hover:bg-yellow-500 border-4 hover:shadow-lg shadow-xl px-8 py-4 rounded-2xl">Go</a>
     </div>
-    <div class=" w-1/2 flex gap-10 flex-col justify-center items-center join">
-        <h1 class="text-3xl text-yellow-800">Try or Contribute To our Recipes...</h1>
-        <a href="{% url 'recipes' %}" class="text-5xl bg-yellow-300 hover:bg-yellow-600 border-2 px-3 py-2 rounded-xl">Go</a>
+    <div class=" lg:w-1/2 lg:h-3/4 md:w-full  md:h-1/2 relative flex justify-center items-center ">
+        {% for lastRecipe in lastRecipes %}
+        <img src="/static/{{lastRecipe.recipe_image}}" class="absolute img w-1/3 img-{{forloop.counter}}">
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

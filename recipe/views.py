@@ -78,7 +78,13 @@ def profile(request,id):
     queryset = queryset.filter(user_id=id)
     if request.GET.get("search"):
         queryset=queryset.filter(recipe_name__icontains=request.GET.get('search'))
-    context = {'recipes': queryset}
+    context = {
+        'recipes': queryset,
+        'fname':queryset[0].user.first_name,
+        'lname':queryset[0].user.last_name,
+        'email':queryset[0].user.email,
+        'username':queryset[0].user
+    }
     return render(request, "profile.html", context)
 
 def auth(request):

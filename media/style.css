@@ -1,0 +1,26 @@
+
+body{min-height:100vh;}
+footer{position:relative;bottom:0px}
+input,textarea{
+        padding-left:10px;
+        padding-right:10px;
+    }
+    .rimg{
+        position:relative;
+        right:0px;
+    }
+    pre{
+        overflow-x:auto;
+        white-space:pre-wrap;
+        max-width:70%;
+    }
+    nav{z-index:5;}
+body{
+overflow-x:hidden;}
+.mySlides {display: none}
+.imgcar {
+vertical-align:middle;
+max-height:70vh;
+width:100%;
+
+}

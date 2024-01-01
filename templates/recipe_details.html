@@ -1,44 +1,37 @@
 {% extends 'base.html' %}
 {% block title %} recipe detail {% endblock %}
 {% block style %}
-body{overflow-x:hidden;}
-    main{width:100vw;}
-    .content{min-width:100vw;}
-img{width:33%}
-@media only screen and (max-width: 800px) {
-    pre{min-width:100vw;}
-    img{width:80%}
-}
+
 {% endblock %}
 {% block body %}
-<main class=" flex  flex-col ">
-
-<div class="container  mx-auto content">
-
-
-
-
-    <div class="flex  flex-col gap-10 justify-center">
-
-                <img class="mx-auto object-cover   rounded-lg  " src="/static/{{recipe_details.recipe_image}}" alt="{{recipe_details.recipe_name}}">
-                <div class="mx-auto text-4xl text-yellow-800">
-                    {{recipe_details.recipe_name}}
-                </div>
+        <div class="flex  flex-col gap-10 justify-center min-w-screen ">
+            <img class="mx-auto object-cover   rounded-lg md:w-10/12 lg:w-1/3	 " src="/static/{{recipe_details.recipe_image}}"
+                 alt="{{recipe_details.recipe_name}}">
+            <div class="mx-auto md:text-6xl lg:text-4xl text-yellow-800">
+                {{recipe_details.recipe_name}}
+            </div>
             {% if request.user == recipe_details.user %}
-                        <div class="flex gap-5 mx-auto" >
-                            <a href="/update-recipe/{{recipe_details.id}}"  class="p-1">
-                                <svg class="feather feather-edit" fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="40"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                            </a>
-                            <a href="/delete-recipe/{{recipe_details.id}}"   class="p-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 24 24">
-                                    <path d="M3 3H21V5H3z"></path><path d="M16.1,22H7.9c-1,0-1.9-0.7-2-1.7L4,4.1l2-0.2L7.9,20l8.2,0L18,3.9l2,0.2l-1.9,16.1C18,21.3,17.1,22,16.1,22z"></path><path d="M5,4l1.9,16.1c0.1,0.5,0.5,0.9,1,0.9h8.2 c0.5,0,0.9-0.4,1-0.9L19,4H5z" opacity=".3"></path><path d="M15 3L15 4 9 4 9 3 10 2 14 2z"></path>
-                                </svg>
-                            </a>
-                        </div>
-           {% endif %}
-                <pre class="mx-auto text-black-900 text-2xl bg-yellow-100 p-5">{{recipe_details.Ingredients}}</pre>
-    </div>
-</div>
-</main>
+            <div class="flex gap-5 mx-auto">
+                <a href="/update-recipe/{{recipe_details.id}}" class="p-1">
+                    <svg class="feather feather-edit" fill="none" height="45" stroke="currentColor"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="45">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                </a>
+                <a href="/delete-recipe/{{recipe_details.id}}" class="p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="45" height="45" viewBox="0 0 24 24">
+                        <path d="M3 3H21V5H3z"></path>
+                        <path d="M16.1,22H7.9c-1,0-1.9-0.7-2-1.7L4,4.1l2-0.2L7.9,20l8.2,0L18,3.9l2,0.2l-1.9,16.1C18,21.3,17.1,22,16.1,22z"></path>
+                        <path d="M5,4l1.9,16.1c0.1,0.5,0.5,0.9,1,0.9h8.2 c0.5,0,0.9-0.4,1-0.9L19,4H5z"
+                              opacity=".3"></path>
+                        <path d="M15 3L15 4 9 4 9 3 10 2 14 2z"></path>
+                    </svg>
+                </a>
+            </div>
+            {% endif %}
+                 <pre  class="mx-auto text-black-900 lg:text-2xl md:text-5xl bg-yellow-100  p-5">{{recipe_details.Ingredients}}</pre>
+
+        </div>
 
 {% endblock body %}
