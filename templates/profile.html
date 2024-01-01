@@ -23,45 +23,42 @@
     {% endif %}
 <!--    <div class="container-sm mx-auto flex gap-3 justify-center flex-col ">-->
     <div class="container-sm mx-auto profile_details">
-        <div class="text-4xl text-blue-700 font-bold">@{{request.user}} </div>
+        <div class="lg:text-4xl md:text-6xl text-blue-700 font-bold">@{{username}} </div>
         <div class="flex gap-5" >
-            <div class="text-3xl">First Name: <span class="text-blue-900 font-bold">{{request.user.first_name}}</span> </div>
-         <div class="text-3xl">Last Name:<span class="text-blue-900 font-bold"> {{request.user.last_name}}</span> </div>
+            <div class="md:text-5xl lg:text-3xl">First Name: <span class="text-blue-900 font-bold">{{fname}}</span> </div>
+         <div class="md:text-5xl lg:text-3xl">Last Name:<span class="text-blue-900 font-bold"> {{lname}}</span> </div>
         </div>
 
-        <div class="text-2xl">Email Address: <span class="text-green-800 font-bold">{{request.user.email}} </span></div>
+        <div class="md:text-5xl lg:text-3xl">Email Address: <span class="text-green-800 font-bold">{{email}} </span></div>
     </div>
     <div class="flex flex-wrap flex-col justify-center mt-10">
 
-        <h1 class="text-3xl font-bold  mx-auto">
+        <h1 class="md:text-5xl lg:text-4xl font-bold mt-12 mx-auto">
             Recipes Added
         </h1>
         <form action="{% url 'profile' request.user.id %}" class="flex mt-2 mb-2 mx-auto">
-            <input class="placeholder:italic placeholder:text-slate-400 bg-yellow-100 w-3/4 border border-slate-300 rounded-l-xl py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="Search for Recipe..." type="text" name="search"/>
-            <input class="px-3 bg-yellow-100 hover:bg-yellow-200 border border-slate-300 rounded-r-xl" type="submit" value="Search">
+            <input class="placeholder:italic placeholder:text-slate-400 bg-yellow-100 w-3/4 border border-slate-300 rounded-l-xl py-2 pl-9 pr-3 shadow-xl focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 lg:text-xl md:text-5xl" placeholder="Search for Recipe..." type="text" name="search"/>
+            <input class="px-3 bg-yellow-100 hover:bg-yellow-200 shadow-xl border border-slate-300 rounded-r-xl lg:text-xl md:text-5xl" type="submit" value="Search">
         </form>
 
-
-        <div class="bg-orange-200 p-4 flex flex-wrap justify-center items-center gap-5">
+        <div class="bg-orange-200 p-3 flex flex-wrap lg:flex-row md:flex-col rounded-lg justify-center items-center gap-5">
             {% for recipe in recipes %}
-            <div class=" min-w-1/2 gap-3 flex justify-between items-center bg-yellow-100 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-yellow-200 dark:border-gray-600 dark:bg-yellow-200 dark:hover:bg-yellow-300">
+            <div class="  lg:w-2/5 md:w-11/12 md:h-96 lg:h-fit gap-8 flex justify-between items-center rounded-xl shadow-xl hover:shadow-md hover:border hover:border-orange-200 md:flex-row  border-gray-600 bg-yellow-200 hover:bg-yellow-300">
 
-                             <span class="bg-orange-400 px-2 rounded-r-xl">{{forloop.counter}}</span>
-                <div class=" flex md:flex-col justify-between items-center w-4/5 h-max">
-<!--                    <div class="card-in">-->
-                        <div class="flex flex-col justify-between p-4 leading-normal min-h-max">
-                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 text-3xl hover:text-blue-500 font-bold tracking-tight text-gray-900 dark:text-grey-700">{{recipe.recipe_name}}</a>
-
-                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 hover:text-blue-500 text-sm font-normal text-gray-700 dark:text-gray-500"> Ingredients: {{recipe.Ingredients | truncatechars:50}}</a>
+                             <div class="bg-orange-400 md:py-4 md:px-5 lg:px-2 md:text-6xl lg:text-2xl rounded-r-full">{{forloop.counter}}</div>
+                <div class=" flex  md:flex-col justify-between items-center w-4/5 h-max">
+                        <div class="flex flex-col justify-between p-4 leading-normal min-h-max gap-3">
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 lg:text-3xl md:text-6xl font-bold tracking-tight text-yellow-900 hover:text-blue-500">{{recipe.recipe_name}}</a>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 lg:text-xl md:text-4xl font-normal text-yellow-600 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
                         </div>
-                    {% if request.user.is_authenticated %}
+                    {% if request.user == recipe.user %}
 
-                        <div class="flex" >
+                        <div class="flex gap-5" >
                             <a href="/update-recipe/{{recipe.id}}/"  class="p-1">
-                                <svg class="feather feather-edit" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                <svg class="feather feather-edit" fill="none" height="40" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="40"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                             </a>
                             <a href="/delete-recipe/{{recipe.id}}/"  class="p-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40" height="40" viewBox="0 0 24 24">
                                     <path d="M3 3H21V5H3z"></path><path d="M16.1,22H7.9c-1,0-1.9-0.7-2-1.7L4,4.1l2-0.2L7.9,20l8.2,0L18,3.9l2,0.2l-1.9,16.1C18,21.3,17.1,22,16.1,22z"></path><path d="M5,4l1.9,16.1c0.1,0.5,0.5,0.9,1,0.9h8.2 c0.5,0,0.9-0.4,1-0.9L19,4H5z" opacity=".3"></path><path d="M15 3L15 4 9 4 9 3 10 2 14 2z"></path>
                                 </svg>
                             </a>
@@ -69,13 +66,51 @@
                         </div>
                     {% endif %}
 
+
+
                 </div>
-                 <a href="{% url 'recipe_details' recipe.id  %}">
-                <img class="rimg object-cover   rounded-r-lg h-48 w-48 md:h-72 md:w-72 md:rounded-none md:rounded-r-lg" src="/static/{{recipe.recipe_image}}" alt="">
+                <a href="{% url 'recipe_details' recipe.id  %}">
+
+                <img class="rimg object-cover md:w-96 md:h-96 lg:h-80 rounded-r-lg  md:rounded-none md:rounded-r-lg"  src="/static/{{recipe.recipe_image}}" alt="{{recipe.recipe_name}}">
                 </a>
+
             </div>
             {% endfor %}
         </div>
+<!--        <div class="bg-orange-200 p-4 flex flex-wrap justify-center items-center gap-5">-->
+<!--            {% for recipe in recipes %}-->
+<!--            <div class=" min-w-1/2 gap-3 flex justify-between items-center bg-yellow-100 border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-yellow-200 dark:border-gray-600 dark:bg-yellow-200 dark:hover:bg-yellow-300">-->
+
+<!--                             <span class="bg-orange-400 px-2 rounded-r-xl">{{forloop.counter}}</span>-->
+<!--                <div class=" flex md:flex-col justify-between items-center w-4/5 h-max">-->
+<!--&lt;!&ndash;                    <div class="card-in">&ndash;&gt;-->
+<!--                        <div class="flex flex-col justify-between p-4 leading-normal min-h-max">-->
+<!--                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 text-3xl hover:text-blue-500 font-bold tracking-tight text-gray-900 dark:text-grey-700">{{recipe.recipe_name}}</a>-->
+
+<!--                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 hover:text-blue-500 text-sm font-normal text-gray-700 dark:text-gray-500"> Ingredients: {{recipe.Ingredients | truncatechars:50}}</a>-->
+<!--                        </div>-->
+<!--                    {% if request.user.is_authenticated %}-->
+
+<!--                        <div class="flex" >-->
+<!--                            <a href="/update-recipe/{{recipe.id}}/"  class="p-1">-->
+<!--                                <svg class="feather feather-edit" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>-->
+<!--                            </a>-->
+<!--                            <a href="/delete-recipe/{{recipe.id}}/"  class="p-1">-->
+<!--                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 24 24">-->
+<!--                                    <path d="M3 3H21V5H3z"></path><path d="M16.1,22H7.9c-1,0-1.9-0.7-2-1.7L4,4.1l2-0.2L7.9,20l8.2,0L18,3.9l2,0.2l-1.9,16.1C18,21.3,17.1,22,16.1,22z"></path><path d="M5,4l1.9,16.1c0.1,0.5,0.5,0.9,1,0.9h8.2 c0.5,0,0.9-0.4,1-0.9L19,4H5z" opacity=".3"></path><path d="M15 3L15 4 9 4 9 3 10 2 14 2z"></path>-->
+<!--                                </svg>-->
+<!--                            </a>-->
+
+<!--                        </div>-->
+<!--                    {% endif %}-->
+
+<!--                </div>-->
+<!--                 <a href="{% url 'recipe_details' recipe.id  %}">-->
+<!--                <img class="rimg object-cover   rounded-r-lg h-48 w-48 md:h-72 md:w-72 md:rounded-none md:rounded-r-lg" src="/static/{{recipe.recipe_image}}" alt="">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
 
     </div>
 
