@@ -81,14 +81,14 @@
 
         <div class="bg-orange-200 p-3 flex flex-wrap lg:flex-row md:flex-col rounded-lg justify-center items-center gap-5">
             {% for recipe in recipes %}
-            <div class="  lg:w-2/5 md:w-11/12 md:h-96 lg:h-fit gap-8 flex justify-between items-center rounded-xl shadow-xl hover:shadow-md hover:border hover:border-orange-200 md:flex-row  border-gray-600 bg-yellow-200 hover:bg-yellow-300">
+            <div class="reveal-bottom  lg:w-2/5 md:w-11/12 md:h-96 lg:h-fit gap-8 flex justify-between items-center rounded-xl shadow-xl hover:shadow-md hover:border hover:border-orange-200 md:flex-row  border-gray-600 bg-yellow-200 hover:bg-yellow-300">
 
-                             <div class="bg-orange-400 md:py-4 md:px-5 lg:px-2 md:text-6xl lg:text-2xl rounded-r-full">{{forloop.counter}}</div>
+                             <div class="bg-orange-400 md:py-4 md:px-5 lg:px-2 md:text-5xl lg:text-2xl rounded-r-full">{{forloop.counter}}</div>
                 <div class=" flex  md:flex-col justify-between items-center w-4/5 h-max">
                         <div class="flex flex-col justify-between p-4 leading-normal min-h-max gap-3">
-                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 lg:text-3xl md:text-6xl font-bold tracking-tight text-yellow-900 hover:text-blue-500">{{recipe.recipe_name}}</a>
-                            <span class="md:text-3xl lg:text-xl">added by, <a href="{% url 'profile' recipe.user.id %}" class="text-blue-800 font-bold lg:text-xl md:text-4xl hover:text-blue-600">@{{recipe.user}}</a></span>
-                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 lg:text-xl md:text-4xl font-normal text-yellow-600 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-2 lg:text-3xl md:text-5xl font-bold tracking-tight text-yellow-900 hover:text-blue-500">{{recipe.recipe_name}}</a>
+                            <span class="md:text-2xl lg:text-xl">added by, <a href="{% url 'profile' recipe.user.id %}" class="text-blue-800 font-bold lg:text-xl md:text-2xl hover:text-blue-600">@{{recipe.user}}</a></span>
+                            <a href="{% url 'recipe_details' recipe.id  %}" class="mb-3 lg:text-xl md:text-3xl font-normal text-yellow-600 hover:text-blue-500"> Ingredients: {{recipe.Ingredients | truncatechars:50 }}</a>
                         </div>
                     {% if request.user == recipe.user %}
 
