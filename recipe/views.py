@@ -22,7 +22,7 @@ def recipes(request):
         )
         return redirect('/recipe')
 
-    queryset = Recipe.objects.all()
+    queryset = Recipe.objects.all().order_by('-id')
 
     if request.GET.get("search"):
         queryset=queryset.filter(recipe_name__icontains=request.GET.get('search'))
