@@ -62,11 +62,11 @@
         </div>
     </form>
     {% else %}
-        <div class="text-center md:text-7xl lg:text-3xl my-5 py-5 bg-yellow-100">
+        <div  class="suggestLogin text-center md:text-7xl relative lg:text-3xl my-5 py-5 bg-yellow-100">
             Wanna see your Delicious Dishes here?... <br>
             <a href="{% url 'auth' %}" class="text-orange-400 lg:text-4xl md:text-8xl hover:text-yellow-600 font-bold">Sign IN</a> <br>
             And Add Yours Too!!!
-            <div>&#9932;X</div>
+<!--            <i  class="fa-solid fa-xmark fa-xl absolute top-10 right-10" style="color: #ffa21f;"></i>-->
         </div>
     {% endif %}
     <div class="flex flex-wrap flex-col justify-center">
@@ -80,7 +80,7 @@
         </form>
 
 
-        <div class="min-h-[70vh] bg-orange-200 p-3 flex flex-wrap lg:flex-row md:flex-col rounded-lg justify-center items-center gap-5">
+        <div class="min-h-[70vh] bg-orange-200 p-3 flex flex-wrap lg:flex-row md:flex-col rounded-t-xl justify-center items-center gap-5">
             {% for recipe in recipes %}
             <div class="
                         {% if forloop.counter > 3 %}
@@ -121,7 +121,7 @@
             </div>
             {% endfor %}
         </div>
-        <div class="pagination p-3 text-orange-900 bg-orange-300 flex gap-5 justify-center text-3xl">
+        <div class="pagination p-3 text-orange-900 bg-orange-300 flex gap-5 justify-center text-3xl rounded-b-xl">
             <span class="step-links">
                 {% if recipes.has_previous %}
                     <a href="?page=1" class="bg-orange-200 px-2 py-1 rounded-xl">&laquo; first</a>
