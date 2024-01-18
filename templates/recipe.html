@@ -79,9 +79,13 @@
         </form>
 
 
-        <div class="bg-orange-200 p-3 flex flex-wrap lg:flex-row md:flex-col rounded-lg justify-center items-center gap-5">
+        <div class="min-h-[70vh] bg-orange-200 p-3 flex flex-wrap lg:flex-row md:flex-col rounded-lg justify-center items-center gap-5">
             {% for recipe in recipes %}
-            <div class="reveal-bottom  lg:w-2/5 md:w-11/12 md:h-96 lg:h-fit gap-8 flex justify-between items-center rounded-xl shadow-xl hover:shadow-md hover:border hover:border-orange-200 md:flex-row  border-gray-600 bg-yellow-200 hover:bg-yellow-300">
+            <div class="
+                        {% if forloop.counter > 3 %}
+                        reveal-bottom
+                        {% endif %}
+              lg:w-2/5 md:w-11/12 md:h-96 lg:h-fit gap-8 flex justify-between items-center rounded-xl shadow-xl hover:shadow-md hover:border hover:border-orange-200 md:flex-row  border-gray-600 bg-yellow-200 hover:bg-yellow-300">
 
                              <div class="bg-orange-400 md:py-4 md:px-5 lg:px-2 md:text-5xl lg:text-2xl rounded-r-full">{{forloop.counter}}</div>
                 <div class=" flex  md:flex-col justify-between items-center w-4/5 h-max">
@@ -116,7 +120,29 @@
             </div>
             {% endfor %}
         </div>
+        <div class="pagination p-3 text-orange-900 bg-orange-300 flex gap-5 justify-center text-3xl">
+            <span class="step-links">
+                {% if recipes.has_previous %}
+                    <a href="?page=1" class="bg-orange-200 px-2 py-1 rounded-xl">&laquo; first</a>
+                    <a href="?page={{ recipes.previous_page_number }} "class="bg-orange-200 px-2 py-1 rounded-xl" >previous</a>
+                {% else %}
+                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-2 py-1 rounded-xl">&laquo; first</a>
+                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-2 py-1 rounded-xl ">previous</a>
+                {% endif %}
 
+                <span class="current">
+                   | Page {{ recipes.number }} of {{ recipes.paginator.num_pages }} |
+                </span>
+
+                {% if recipes.has_next %}
+                    <a href="?page={{ recipes.next_page_number }} " class="bg-orange-200 px-7 py-1 rounded-xl">next</a>
+                    <a href="?page={{ recipes.paginator.num_pages }}" class="bg-orange-200 px-4 py-1 rounded-xl">last &raquo;</a>
+                {% else %}
+                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-7 py-1 rounded-xl">next</a>
+                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-4 py-1 rounded-xl ">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 
 </div>

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import *
 from .models import *
 from django.contrib.auth import authenticate, login,logout
@@ -26,8 +27,16 @@ def recipes(request):
 
     if request.GET.get("search"):
         queryset=queryset.filter(recipe_name__icontains=request.GET.get('search'))
+        context = {'recipes': queryset}
+        paginator = Paginator(queryset, 5)
+    else:
+        paginator = Paginator(queryset, 5)
 
-    context = {'recipes': queryset}
+
+    page_num = request.GET.get("page")
+    page_obj = paginator.get_page(page_num)
+    context = {'recipes': page_obj}
+
     return render(request, "recipe.html", context)
 
 
