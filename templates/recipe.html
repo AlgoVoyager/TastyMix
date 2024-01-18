@@ -62,10 +62,11 @@
         </div>
     </form>
     {% else %}
-        <div class="text-center md:text-7xl lg:text-3xl my-5">
+        <div class="text-center md:text-7xl lg:text-3xl my-5 py-5 bg-yellow-100">
             Wanna see your Delicious Dishes here?... <br>
             <a href="{% url 'auth' %}" class="text-orange-400 lg:text-4xl md:text-8xl hover:text-yellow-600 font-bold">Sign IN</a> <br>
             And Add Yours Too!!!
+            <div>&#9932;X</div>
         </div>
     {% endif %}
     <div class="flex flex-wrap flex-col justify-center">
@@ -126,8 +127,8 @@
                     <a href="?page=1" class="bg-orange-200 px-2 py-1 rounded-xl">&laquo; first</a>
                     <a href="?page={{ recipes.previous_page_number }} "class="bg-orange-200 px-2 py-1 rounded-xl" >previous</a>
                 {% else %}
-                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-2 py-1 rounded-xl">&laquo; first</a>
-                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-2 py-1 rounded-xl ">previous</a>
+                    <a href="#" class="cursor-not-allowed bg-orange-100 text-indigo-300 px-2 py-1 rounded-xl">&laquo; first</a>
+                    <a href="#" class="cursor-not-allowed bg-orange-100 text-indigo-300 px-2 py-1 rounded-xl ">previous</a>
                 {% endif %}
 
                 <span class="current">
@@ -138,8 +139,8 @@
                     <a href="?page={{ recipes.next_page_number }} " class="bg-orange-200 px-7 py-1 rounded-xl">next</a>
                     <a href="?page={{ recipes.paginator.num_pages }}" class="bg-orange-200 px-4 py-1 rounded-xl">last &raquo;</a>
                 {% else %}
-                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-7 py-1 rounded-xl">next</a>
-                    <a href="#" class="cursor-not-allowed bg-orange-200 text-indigo-300 px-4 py-1 rounded-xl ">last &raquo;</a>
+                    <a href="#" class="cursor-not-allowed bg-orange-100 text-indigo-300 px-7 py-1 rounded-xl">next</a>
+                    <a href="#" class="cursor-not-allowed bg-orange-100 text-indigo-300 px-4 py-1 rounded-xl ">last &raquo;</a>
                 {% endif %}
             </span>
         </div>
